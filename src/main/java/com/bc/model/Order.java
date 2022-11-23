@@ -1,9 +1,9 @@
 package com.bc.model;
 
-import java.util.HashSet;
+import java.time.LocalDate;
+import java.util.List;
 
-import java.util.Set;
-
+import javax.annotation.processing.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,24 +13,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
-@Data
 @Entity
-public class Customer {
+@Data
+public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer cId;
-	private String fName;
-	private String lName;
-	private String mobile;
-	private String email;
-	private String password;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Address> addressList = new HashSet<>();
+	private Integer orderId;
+	private LocalDate date;
+	private String orderStatus;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private Cart cart;
+	private Customer customer;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Product> productList;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address address;
 }
