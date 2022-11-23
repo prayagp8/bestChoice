@@ -1,9 +1,10 @@
-package com.bc.service;
+package com.bc.implementation;
 
 import java.util.List;
 
 import com.bc.exception.ProductException;
 import com.bc.model.Product;
+import com.bc.service.ProductService;
 
 public class ProductServiceImpl implements ProductService {
 

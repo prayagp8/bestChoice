@@ -1,9 +1,10 @@
-package com.bc.service;
+package com.bc.implementation;
 
 import java.util.List;
 
 import com.bc.exception.AddressException;
 import com.bc.model.Address;
+import com.bc.service.AddressService;
 
 public class AddressServiceImpl implements AddressService {
 

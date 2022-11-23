@@ -1,9 +1,10 @@
-package com.bc.service;
+package com.bc.implementation;
 
 import java.util.List;
 
 import com.bc.exception.CustomerException;
 import com.bc.model.Customer;
+import com.bc.service.CustomerService;
 
 public class CustomerServiceImpl implements CustomerService {
 
