@@ -17,7 +17,7 @@ public interface ProductService {
 	
 	public List<Product> viewProductByCategory(Integer categoryId) throws ProductException;
 	
-	public Product removeProduct(Integer productId);
+	public Product removeProduct(Integer productId) throws ProductException;
 	
 	
 

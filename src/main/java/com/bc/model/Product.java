@@ -17,12 +17,12 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer productId;
 	private String productName;
-	private double price ;
+	private Double price ;
 	private String color;
 	private String dimension;
 	private String specification;
 	private String menufacturer;
-	private int quality;
+	private Integer quantity;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Category category;
