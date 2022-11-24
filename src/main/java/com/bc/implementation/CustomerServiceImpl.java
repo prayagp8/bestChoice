@@ -3,12 +3,14 @@ package com.bc.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bc.exception.CustomerException;
 import com.bc.model.Customer;
 import com.bc.repo.CustomerRepo;
 import com.bc.service.CustomerService;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired

@@ -18,6 +18,6 @@ public interface OrderService {
 	
 	public List<Order> viewAllOrdersByLocation(String location) throws OrderException;
 	
-	public List<Order> viewAllOrdersByUserId(Integer uderId) throws OrderException;
+	public List<Order> viewAllOrdersByUserId(Integer userId) throws OrderException;
 
 }

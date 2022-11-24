@@ -19,8 +19,7 @@ public interface CartService {
 	
 	public Cart decreaseProductQuantity(Integer customerId, Integer productId)throws CartException,CustomerException,ProductException;
 	
-//	customerId kyu le raha ye pahle check karega kya customer hai already acha or agar customer nahi hai hai to exception throw karega
-//	na customer ka bhi wahi bol raha hu mai
+
 	
 
 }
