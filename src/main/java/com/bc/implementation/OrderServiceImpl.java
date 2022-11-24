@@ -54,14 +54,23 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> viewAllOrdersByLocation(String location) throws OrderException {
+		List<Order> orders= oRepo.getAllOrdersByLocation(location);
+		if(orders.size()>0) {
+			return orders;
+		}else {
+			throw new OrderException("Order not found");
+		}
 		
-		return null;
 	}
 
 	@Override
 	public List<Order> viewAllOrdersByUserId(Integer uderId) throws OrderException {
-		
-		return null;
+		List<Order> orders= oRepo.getAllOrdersByCid(uderId);
+		if(orders.size()>0) {
+			return orders;
+		}else {
+			throw new OrderException("Order not found");
+		}
 	}
 
 }
