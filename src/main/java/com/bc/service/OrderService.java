@@ -16,7 +16,7 @@ public interface OrderService {
 	
 	public List<Order> viewAllOrder() throws OrderException;
 	
-	public List<Order> viewAllOrdersByLocation(String location) throws OrderException;
+//	public List<Order> viewAllOrdersByLocation(String location) throws OrderException;
 	
 	public List<Order> viewAllOrdersByUserId(Integer userId) throws OrderException;
 

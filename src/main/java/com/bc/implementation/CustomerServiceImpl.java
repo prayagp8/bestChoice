@@ -1,6 +1,7 @@
 package com.bc.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer remove(Integer customerId) throws CustomerException {
-		Customer c=cRepo.findById(customerId).orElseThrow(()->new CustomerException("Customer not found with customerid - "+customerId));
-		if(c!=null) {
+		Optional<Customer> opt=cRepo.findById(customerId);
+		if(opt.isPresent()) {
+			Customer c=opt.get();
 			cRepo.delete(c);
+			return c;
+		}else {
+			throw new CustomerException("Customer not found with cid - "+customerId);
 		}
-		return c;
+		
 	}
 
 	@Override

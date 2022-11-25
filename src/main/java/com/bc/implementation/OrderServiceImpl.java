@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bc.exception.OrderException;
 import com.bc.exception.ProductException;
 import com.bc.model.Order;
+import com.bc.repo.CustomerRepo;
 import com.bc.repo.OrderRepo;
 import com.bc.service.OrderService;
 
@@ -17,6 +18,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private OrderRepo oRepo;
+	
+	@Autowired
+	private CustomerRepo cRepo;
 	@Override
 	public Order addOrder(Order order) throws OrderException {
 		 Order o= oRepo.save(order);
@@ -52,20 +56,20 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 
-	@Override
-	public List<Order> viewAllOrdersByLocation(String location) throws OrderException {
-		List<Order> orders= oRepo.getAllOrdersByLocation(location);
-		if(orders.size()>0) {
-			return orders;
-		}else {
-			throw new OrderException("Order not found");
-		}
-		
-	}
+//	@Override
+//	public List<Order> viewAllOrdersByLocation(String location) throws OrderException {
+//		List<Order> orders= oRepo.getAllOrdersByLocation(location);
+//		if(orders.size()>0) {
+//			return orders;
+//		}else {
+//			throw new OrderException("Order not found");
+//		}
+//		
+//	}
 
 	@Override
 	public List<Order> viewAllOrdersByUserId(Integer uderId) throws OrderException {
-		List<Order> orders= oRepo.getAllOrdersByCid(uderId);
+		List<Order> orders= cRepo.getAllOrderByCid(uderId);
 		if(orders.size()>0) {
 			return orders;
 		}else {
