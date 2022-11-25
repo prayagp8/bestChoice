@@ -29,24 +29,25 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	private ProductRepo pRepo;
 	@Override
-	public Cart addProductToCart(Integer customerId, Product product) throws CartException,CustomerException, ProductException {
+	public Cart addProductToCart(Integer customerId, Integer productId) throws CartException,CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
 		if (opt.isEmpty())
 			throw new CustomerException("Customer not found!");
 		
-		Optional<Product> itemOpt = pRepo.findById(product.getProductId());
+		Optional<Product> itemOpt = pRepo.findById(productId);
 		if (itemOpt.isEmpty())
 			throw new ProductException("Product not found!");
 		
 		
 		Customer customer = opt.get();
 		Cart cart = customer.getCart();
+		
 		List<Product> itemList=cart.getProducts();
 		boolean flag=true;
 		for(int i=0;i<itemList.size();i++)
 		{
 			Product element=itemList.get(i);
-			if(element.getProductId()==product.getProductId())
+			if(element.getProductId()==productId)
 			{
 				element.setQuantity(element.getQuantity()+1);
 				flag=false;

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bc.exception.CustomerException;
+import com.bc.model.Cart;
 import com.bc.model.Customer;
+import com.bc.repo.CartRepo;
 import com.bc.repo.CustomerRepo;
 import com.bc.service.CustomerService;
 
@@ -16,9 +18,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerRepo cRepo;
+	
+	@Autowired CartRepo cartRepo;
 	@Override
 	public Customer addCustomer(Customer customer) throws CustomerException {
+		Cart cart=new Cart();
+		customer.setCart(cart);
+		cart.setCustomer(customer);
 		Customer c= cRepo.save(customer);
+		
 		if(c!=null) {
 			return c;
 		}else {

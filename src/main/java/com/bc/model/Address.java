@@ -9,8 +9,6 @@ import lombok.Data;
 @Entity
 @Data
 public class Address {
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer addressId;
@@ -20,7 +18,6 @@ public class Address {
 	private String state;
 	private String country;
 	private String pincode;
-	
 	
 
 }

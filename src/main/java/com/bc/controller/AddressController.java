@@ -36,7 +36,7 @@ public class AddressController {
 		return new ResponseEntity<Address>(aService.updateAddress(a),HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/address")
+	@DeleteMapping("/address/{aId}")
 	public ResponseEntity<Address> remove(@PathVariable("aId") Integer aId) throws AddressException{
 		return new ResponseEntity<Address>(aService.remove(aId),HttpStatus.OK);
 	}

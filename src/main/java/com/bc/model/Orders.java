@@ -1,9 +1,10 @@
 package com.bc.model;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.annotation.processing.Generated;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +17,12 @@ import javax.persistence.OneToOne;
 import lombok.Data;
 @Entity
 @Data
-public class Order {
+public class Orders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer orderId;
-	private LocalDate date;
+	private LocalDateTime date;
 	private String orderStatus;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

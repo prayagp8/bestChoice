@@ -46,9 +46,9 @@ public class ProductController {
 		  
 	}
 	
-	@GetMapping("/product")
-	public ResponseEntity<List<Product>> viewProduct() throws ProductException{
-		return new  ResponseEntity<List<Product>>(pService.viewAllProduct(),HttpStatus.OK);
+	@GetMapping("/product/{productId}")
+	public ResponseEntity<Product> viewProduct(@PathVariable("productId") Integer productId) throws ProductException{
+		return new  ResponseEntity<Product>(pService.viewProduct(productId),HttpStatus.OK);
 	}
 	
 	@GetMapping("/products/{categoryId}")

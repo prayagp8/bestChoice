@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bc.exception.CartException;
@@ -25,9 +26,9 @@ public class CartController {
 	@Autowired
 	private CartService cService;
 	
-	@PostMapping("/cart/{cId}")
-	public ResponseEntity<Cart> addProductToCart(@PathVariable("cId") Integer cId , @RequestBody Product p  ) throws CartException, CustomerException, ProductException{
-		return new ResponseEntity<Cart>(cService.addProductToCart(cId, p),HttpStatus.OK);
+	@PostMapping("/cart")
+	public ResponseEntity<Cart> addProductToCart(@RequestParam("customerId") Integer cId , @RequestParam("productId") Integer productId  ) throws CartException, CustomerException, ProductException{
+		return new ResponseEntity<Cart>(cService.addProductToCart(cId, productId),HttpStatus.OK);
 		
 	}
 	

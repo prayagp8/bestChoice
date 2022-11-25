@@ -1,14 +1,21 @@
 package com.bc.implementation;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bc.exception.CustomerException;
 import com.bc.exception.OrderException;
 import com.bc.exception.ProductException;
-import com.bc.model.Order;
+import com.bc.model.Cart;
+import com.bc.model.Customer;
+import com.bc.model.Orders;
+import com.bc.model.Product;
+import com.bc.repo.CartRepo;
 import com.bc.repo.CustomerRepo;
 import com.bc.repo.OrderRepo;
 import com.bc.service.OrderService;
@@ -20,20 +27,36 @@ public class OrderServiceImpl implements OrderService {
 	private OrderRepo oRepo;
 	
 	@Autowired
-	private CustomerRepo cRepo;
+	private CustomerRepo customerRepo;
+	
+	@Autowired
+	private CartRepo cartRepo;
+	
 	@Override
-	public Order addOrder(Order order) throws OrderException {
-		 Order o= oRepo.save(order);
-		 if(o!=null) {
-			 return o;
-		 }else {
-			 throw new OrderException("Order not added");
+	public Orders addOrder(Integer cid) throws OrderException,CustomerException {
+		 Optional<Customer> opt=customerRepo.findById(cid);
+		 if(opt.isEmpty()) {
+			 throw new CustomerException("Customer not found");
 		 }
-	}
+	
+		 Customer c=opt.get();
+		 Cart cart=c.getCart();
+		 Orders o=new Orders();
+		 o.setDate(LocalDateTime.now());
+		 o.setOrderStatus("Pending");
+		 o.setAddress(c.getAddress());
+		 List<Product> products=new ArrayList<>(cart.getProducts());
+		 o.setProductList(products);
+		 o.setCustomer(c);
+		 cart.getProducts().clear();
+		 cartRepo.save(cart);
+		 return oRepo.save(o);
+		 
+     }
 
 	@Override
-	public Order updateOrder(Order order) throws OrderException {
-		Order o=oRepo.findById(order.getOrderId()).orElseThrow(()-> new OrderException("Order not found"));
+	public Orders updateOrder(Orders order) throws OrderException {
+		Orders o=oRepo.findById(order.getOrderId()).orElseThrow(()-> new OrderException("Order not found"));
 		if(o!=null) {
 			oRepo.save(order);
 		}
@@ -41,14 +64,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order viewOrder(Integer orderId) throws OrderException {
-		Order o=oRepo.findById(orderId).orElseThrow(()-> new OrderException("Order not found"));
+	public Orders viewOrder(Integer orderId) throws OrderException {
+		Orders o=oRepo.findById(orderId).orElseThrow(()-> new OrderException("Order not found"));
 		return o;
 	}
 
 	@Override
-	public List<Order> viewAllOrder() throws OrderException {
-		List<Order> orders= oRepo.findAll();
+	public List<Orders> viewAllOrder() throws OrderException {
+		List<Orders> orders= oRepo.findAll();
 		if(orders.size()>0) {
 			return orders;
 		}else {
@@ -57,8 +80,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 //	@Override
-//	public List<Order> viewAllOrdersByLocation(String location) throws OrderException {
-//		List<Order> orders= oRepo.getAllOrdersByLocation(location);
+//	public List<Orders> viewAllOrdersByLocation(String city) throws OrderException {
+//		List<Orders> orders= oRepo.getAllOrdersByLocation(city);
 //		if(orders.size()>0) {
 //			return orders;
 //		}else {
@@ -68,8 +91,8 @@ public class OrderServiceImpl implements OrderService {
 //	}
 
 	@Override
-	public List<Order> viewAllOrdersByUserId(Integer uderId) throws OrderException {
-		List<Order> orders= cRepo.getAllOrderByCid(uderId);
+	public List<Orders> viewAllOrdersByUserId(Integer uderId) throws OrderException {
+		List<Orders> orders= customerRepo.getAllOrderByCid(uderId);
 		if(orders.size()>0) {
 			return orders;
 		}else {

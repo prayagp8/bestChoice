@@ -9,7 +9,7 @@ import com.bc.model.Product;
 public interface CartService {
 	
 	
-	public Cart addProductToCart(Integer customerId, Product product) throws CartException,CustomerException,ProductException;
+	public Cart addProductToCart(Integer customerId, Integer productId) throws CartException,CustomerException,ProductException;
 	
 	public Cart removeProductFromCart(Integer customerId, Integer productId) throws CartException,CustomerException,ProductException;
 	

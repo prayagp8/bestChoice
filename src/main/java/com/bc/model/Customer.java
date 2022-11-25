@@ -28,9 +28,9 @@ public class Customer {
 	private String email;
 	private String password;
 	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Address> addressList = new HashSet<>();
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address address;
 	
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
@@ -38,6 +38,6 @@ public class Customer {
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-	private List<Order> orders;
+	private List<Orders> orders;
 	
 }

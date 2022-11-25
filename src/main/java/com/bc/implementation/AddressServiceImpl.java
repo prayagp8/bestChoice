@@ -1,6 +1,7 @@
 package com.bc.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +36,14 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address remove(Integer addressId) throws AddressException {
-		Address a= aRepo.findById(addressId).orElseThrow(()->new AddressException("Address not found"));
-		aRepo.delete(a);
-		return a;
+		Optional<Address> opt= aRepo.findById(addressId);
+		if(opt.isPresent()) {
+			Address a= opt.get();
+			aRepo.delete(a);
+			return a;
+		}else {
+			throw new AddressException("Address not found addressid - "+addressId);
+		}
 	}
 
 	@Override
