@@ -3,6 +3,7 @@ package com.bc.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bc.exception.CartException;
 import com.bc.exception.CustomerException;
 import com.bc.exception.OrderException;
 import com.bc.model.Orders;
@@ -20,12 +22,12 @@ import com.bc.service.OrderService;
 @RestController
 public class OrderController {
 	
-	
+	@Autowired
 	private OrderService oService;
 	
 	@PostMapping("/orders")
-	public ResponseEntity<Orders> addOrder(@RequestParam("customerId") Integer cid) throws OrderException,CustomerException{
-		return new ResponseEntity<Orders>(oService.addOrder(cid),HttpStatus.CREATED);
+	public ResponseEntity<Orders> addOrder(@RequestParam("customerId") Integer customerId) throws OrderException,CustomerException, CartException{
+		return new ResponseEntity<Orders>(oService.addOrder(customerId),HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/orders")

@@ -21,11 +21,13 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cartId;
-	
+	private Integer product_quantity;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Product> products = new ArrayList<>();
+	private List<Product> products;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Customer customer;
+	
+	
 	
 }

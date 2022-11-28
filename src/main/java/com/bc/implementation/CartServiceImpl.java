@@ -49,7 +49,13 @@ public class CartServiceImpl implements CartService {
 			Product element=itemList.get(i);
 			if(element.getProductId()==productId)
 			{
-				element.setQuantity(element.getQuantity()+1);
+				if(cart.getProduct_quantity()==null) {
+					cart.setProduct_quantity(1);
+					
+				}else {
+					cart.setProduct_quantity(cart.getProduct_quantity()+1);
+				}
+				
 				flag=false;
 			}
 		}
@@ -128,7 +134,7 @@ public class CartServiceImpl implements CartService {
 			Product element=itemList.get(i);
 			if(element.getProductId()==productId)
 			{
-				element.setQuantity(element.getQuantity()+1);
+				cart.setProduct_quantity(cart.getProduct_quantity()+1);
 				flag=false;
 			}
 		}
@@ -163,7 +169,7 @@ public class CartServiceImpl implements CartService {
 				Product element=itemList.get(i);
 				if(element.getProductId()==productId)
 				{
-					element.setQuantity(element.getQuantity()-1);
+					cart.setProduct_quantity(cart.getProduct_quantity()+1);
 					flag=false;
 				}
 			}

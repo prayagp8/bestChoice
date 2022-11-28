@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bc.exception.CartException;
 import com.bc.exception.CustomerException;
 import com.bc.exception.OrderException;
 import com.bc.exception.ProductException;
@@ -33,7 +34,8 @@ public class OrderServiceImpl implements OrderService {
 	private CartRepo cartRepo;
 	
 	@Override
-	public Orders addOrder(Integer cid) throws OrderException,CustomerException {
+	public Orders addOrder(Integer cid) throws OrderException,CustomerException, CartException {
+
 		 Optional<Customer> opt=customerRepo.findById(cid);
 		 if(opt.isEmpty()) {
 			 throw new CustomerException("Customer not found");
@@ -42,16 +44,22 @@ public class OrderServiceImpl implements OrderService {
 		 Customer c=opt.get();
 		 Cart cart=c.getCart();
 		 Orders o=new Orders();
+		 
 		 o.setDate(LocalDateTime.now());
 		 o.setOrderStatus("Pending");
 		 o.setAddress(c.getAddress());
-		 List<Product> products=new ArrayList<>(cart.getProducts());
-		 o.setProductList(products);
 		 o.setCustomer(c);
-		 cart.getProducts().clear();
-		 cartRepo.save(cart);
-		 return oRepo.save(o);
-		 
+		 if(cart.getProducts().isEmpty()) {
+			 throw new CartException("add minimum one product to order!");
+		 }else {
+			 o.setProductList(new ArrayList<>(cart.getProducts()));
+			 
+//			 o.setProductList(cart.getProducts().get(0));
+
+			return oRepo.save(o);
+			
+		 }
+
      }
 
 	@Override
@@ -65,8 +73,13 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Orders viewOrder(Integer orderId) throws OrderException {
-		Orders o=oRepo.findById(orderId).orElseThrow(()-> new OrderException("Order not found"));
-		return o;
+		Optional<Orders> o=oRepo.findById(orderId);
+		if(o.isPresent()) {
+			return o.get();
+		}else {
+			throw new OrderException("order not present!!");
+		}
+		
 	}
 
 	@Override

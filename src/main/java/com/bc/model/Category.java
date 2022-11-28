@@ -24,6 +24,6 @@ public class Category {
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
-	private List<Product> productList = new ArrayList<>();
+	private List<Product> productList;
 	
 }
