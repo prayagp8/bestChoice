@@ -22,27 +22,25 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService cService;
-	
+
 	@PostMapping("/customer")
-	public ResponseEntity<Customer> addCustomer(@RequestBody Customer c ) throws CustomerException{
-		return new ResponseEntity<Customer>(cService.addCustomer(c),HttpStatus.OK);
+	public ResponseEntity<Customer> addCustomer(@RequestBody Customer c) throws CustomerException {
+		return new ResponseEntity<Customer>(cService.addCustomer(c), HttpStatus.OK);
 	}
-	
-	
+
 	@PutMapping("/customer")
-	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer c ) throws CustomerException{
-		return new ResponseEntity<Customer>(cService.updateCustomer(c),HttpStatus.OK);
+	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer c) throws CustomerException {
+		return new ResponseEntity<Customer>(cService.updateCustomer(c), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/customer/{cId}")
-	public ResponseEntity<Customer> remove(@PathVariable("cId") Integer cId ) throws CustomerException{
-		return new ResponseEntity<Customer>(cService.remove(cId),HttpStatus.OK);
+	public ResponseEntity<Customer> remove(@PathVariable("cId") Integer cId) throws CustomerException {
+		return new ResponseEntity<Customer>(cService.remove(cId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/customers")
-	public ResponseEntity<List<Customer>> viewAllCustomer() throws CustomerException{
-		return new ResponseEntity<List<Customer>>(cService.viewAllCustomer(),HttpStatus.OK);
+	public ResponseEntity<List<Customer>> viewAllCustomer() throws CustomerException {
+		return new ResponseEntity<List<Customer>>(cService.viewAllCustomer(), HttpStatus.OK);
 	}
-	
-	
+
 }
