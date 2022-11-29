@@ -24,7 +24,7 @@ public class AdminServiceImpl implements AdminService {
 
 		Admin existsAdmin = adminRepo.findByEmail(email);
 		if (existsAdmin != null)
-			throw new AdminException("Admin created => Email : " + email + ", Password : " + password);
+			throw new AdminException("Admin already created, the credentials => Email : " + email + ", Password : " + password);
 
 		Admin admin = new Admin();
 		admin.setName(name);
