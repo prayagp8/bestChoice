@@ -4,7 +4,6 @@ import com.bc.exception.CartException;
 import com.bc.exception.CustomerException;
 import com.bc.exception.ProductException;
 import com.bc.model.Cart;
-import com.bc.model.Product;
 
 public interface CartService {
 
