@@ -1,8 +1,6 @@
 package com.bc.model;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,6 +13,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+
 @Data
 @Entity
 public class Customer {
@@ -26,8 +25,7 @@ public class Customer {
 	private String lName;
 	private String mobile;
 	private String email;
-	private String password;
-	
+	private String password;	
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
