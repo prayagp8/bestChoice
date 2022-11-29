@@ -33,8 +33,10 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public String loginAccount(LoginDTO loginDTO) throws LoginException {
 
-		if (loginDTO.getRole().equalsIgnoreCase("customer")) {
+		if (!loginDTO.getRole().equalsIgnoreCase("customer") && !loginDTO.getRole().equalsIgnoreCase("admin"))
+			throw new LoginException("Please enter a valid role");
 
+		if (loginDTO.getRole().equalsIgnoreCase("customer")) {
 			Customer customer = customerRepo.findByEmail(loginDTO.getEmail());
 			if (customer == null)
 				throw new LoginException("Invalid email");
@@ -89,6 +91,9 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public String logoutAccount(String role, String key) throws LoginException {
+
+		if (!role.equalsIgnoreCase("customer") && !role.equalsIgnoreCase("admin"))
+			throw new LoginException("Please enter a valid role");
 
 		if (role.equalsIgnoreCase("customer")) {
 

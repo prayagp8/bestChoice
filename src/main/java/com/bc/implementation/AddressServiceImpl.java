@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.bc.exception.AddressException;
 import com.bc.exception.CustomerException;
+import com.bc.exception.SessionLoginException;
 import com.bc.model.Address;
 import com.bc.model.Customer;
 import com.bc.repository.AddressRepo;
 import com.bc.repository.CustomerRepo;
 import com.bc.service.AddressService;
+import com.bc.service.SessionLoginService;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -23,6 +25,9 @@ public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private CustomerRepo customerRepo;
 
+	@Autowired
+	private SessionLoginService sessionService;
+
 	// check customer is available or not in database
 	public Customer userValidation(Integer userId) throws CustomerException {
 		Optional<Customer> customerOpt = customerRepo.findById(userId);
@@ -32,9 +37,14 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public Address updateAddress(Address address, Integer userId) throws AddressException, CustomerException {
+	public Address updateAddressByUserId(Address address, Integer userId, String key)
+			throws AddressException, CustomerException, SessionLoginException {
 		if (address == null)
 			throw new AddressException("Address can't be null");
+
+		// checking user login status
+		sessionService.checkAnyUserLoginStatus(key);
+
 		Customer customer = userValidation(userId);
 		customer.setAddress(address);
 		customerRepo.save(customer);
@@ -42,15 +52,23 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public List<Address> viewAllAddress() throws AddressException {
+	public List<Address> viewAllAddress(String key) throws AddressException, SessionLoginException {
+
+		// checking user login status
+		sessionService.checkAnyUserLoginStatus(key);
+
 		List<Address> addresses = addressRepo.findAll();
 		if (addresses.isEmpty())
-			throw new AddressException("Address not found!");
+			throw new AddressException("Address list is empty!");
 		return addresses;
 	}
 
 	@Override
-	public Address viewAddressByUserId(Integer userId) throws CustomerException {
+	public Address viewAddressByUserId(Integer userId, String key) throws CustomerException, SessionLoginException {
+
+		// checking user login status
+		sessionService.checkAnyUserLoginStatus(key);
+
 		Customer customer = userValidation(userId);
 		return customer.getAddress();
 	}

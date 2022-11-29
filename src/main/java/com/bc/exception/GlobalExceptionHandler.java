@@ -12,6 +12,15 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
+	@ExceptionHandler(SessionLoginException.class)
+	public ResponseEntity<MyErrorDetails> SessionLoginExceptionHandler(SessionLoginException me, WebRequest re) {
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTime(LocalDateTime.now());
+		err.setMessage(me.getMessage());
+		err.setDescription(re.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
 
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<MyErrorDetails> LoginExceptionHandler(LoginException me, WebRequest re) {
