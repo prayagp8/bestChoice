@@ -10,7 +10,8 @@ import com.bc.model.Customer;
 import com.bc.model.Orders;
 
 @Repository
-public interface CustomerRepo extends JpaRepository<Customer, Integer>{
+public interface CustomerRepo extends JpaRepository<Customer, Integer> {
+	
 	@Query("select c.orders from Customer c where c.cId=?1")
 	public List<Orders> getAllOrderByCid(Integer cId);
 }
