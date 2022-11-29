@@ -22,6 +22,15 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(AdminException.class)
+	public ResponseEntity<MyErrorDetails> AdminExceptionHandler(AdminException me, WebRequest re) {
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTime(LocalDateTime.now());
+		err.setMessage(me.getMessage());
+		err.setDescription(re.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(AddressException.class)
 	public ResponseEntity<MyErrorDetails> AddressExceptionHandler(AddressException me, WebRequest re) {
 		MyErrorDetails err = new MyErrorDetails();
