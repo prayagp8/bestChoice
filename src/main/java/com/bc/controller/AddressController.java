@@ -22,34 +22,29 @@ public class AddressController {
 
 	@Autowired
 	private AddressService aService;
-	
+
 	@PostMapping("/address")
-	public ResponseEntity<Address> addAddress(@RequestBody Address a) throws AddressException{
-		
-		return new ResponseEntity<Address>(aService.addAddress(a),HttpStatus.OK);
+	public ResponseEntity<Address> addNewAddress(@RequestBody Address address) throws AddressException {
+		return new ResponseEntity<Address>(aService.addAddress(address), HttpStatus.OK);
 	}
-	
-	
+
 	@PutMapping("/address")
-	public ResponseEntity<Address> updateAddress(@RequestBody Address a) throws AddressException{
-		
-		return new ResponseEntity<Address>(aService.updateAddress(a),HttpStatus.OK);
+	public ResponseEntity<Address> updateAddress(@RequestBody Address address) throws AddressException {
+		return new ResponseEntity<Address>(aService.updateAddress(address), HttpStatus.OK);
 	}
-	
-	@DeleteMapping("/address/{aId}")
-	public ResponseEntity<Address> remove(@PathVariable("aId") Integer aId) throws AddressException{
-		return new ResponseEntity<Address>(aService.remove(aId),HttpStatus.OK);
+
+	@DeleteMapping("/address/{id}")
+	public ResponseEntity<Address> removeAddressById(@PathVariable("id") Integer addressId) throws AddressException {
+		return new ResponseEntity<Address>(aService.remove(addressId), HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/address")
-	public ResponseEntity<List<Address>> viewAllAddress() throws AddressException{
-		return new ResponseEntity<List<Address>>(aService.viewAllAddress(),HttpStatus.OK);
+	public ResponseEntity<List<Address>> viewAllAddress() throws AddressException {
+		return new ResponseEntity<List<Address>>(aService.viewAllAddress(), HttpStatus.OK);
 	}
-	
-	
-	@GetMapping("/address/{aId}")
-	public ResponseEntity<Address> viewAddress(@PathVariable("aId") Integer aId ) throws AddressException{
-		return new ResponseEntity<Address>(aService.viewAddress(aId),HttpStatus.OK);
+
+	@GetMapping("/address/{id}")
+	public ResponseEntity<Address> viewAddressById(@PathVariable("id") Integer addressId) throws AddressException {
+		return new ResponseEntity<Address>(aService.viewAddress(addressId), HttpStatus.OK);
 	}
 }
