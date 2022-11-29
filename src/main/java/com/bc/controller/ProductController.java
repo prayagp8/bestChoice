@@ -43,7 +43,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/view/{productId}")
-	public ResponseEntity<Product> viewProduct(@PathVariable("productId") Integer productId) throws ProductException {
+	public ResponseEntity<Product> viewProductById(@PathVariable("productId") Integer productId) throws ProductException {
 		return new ResponseEntity<Product>(pService.viewProduct(productId), HttpStatus.OK);
 	}
 
