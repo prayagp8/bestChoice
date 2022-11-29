@@ -6,8 +6,8 @@ public class CustomerException extends Exception {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CustomerException(String mesg) {
-		super(mesg);
+	public CustomerException(String message) {
+		super(message);
 	}
 	
 	

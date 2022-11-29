@@ -6,8 +6,8 @@ public class CartException extends Exception {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CartException(String mesg) {
-		super(mesg);
+	public CartException(String message) {
+		super(message);
 	}
 	
 	
