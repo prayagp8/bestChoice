@@ -14,8 +14,8 @@ import com.bc.exception.OrderException;
 import com.bc.model.Cart;
 import com.bc.model.Customer;
 import com.bc.model.Orders;
-import com.bc.repo.CustomerRepo;
-import com.bc.repo.OrderRepo;
+import com.bc.repository.CustomerRepo;
+import com.bc.repository.OrderRepo;
 import com.bc.service.OrderService;
 
 @Service

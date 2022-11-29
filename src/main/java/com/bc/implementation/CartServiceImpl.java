@@ -12,9 +12,9 @@ import com.bc.exception.ProductException;
 import com.bc.model.Cart;
 import com.bc.model.Customer;
 import com.bc.model.Product;
-import com.bc.repo.CartRepo;
-import com.bc.repo.CustomerRepo;
-import com.bc.repo.ProductRepo;
+import com.bc.repository.CartRepo;
+import com.bc.repository.CustomerRepo;
+import com.bc.repository.ProductRepo;
 import com.bc.service.CartService;
 
 @Service

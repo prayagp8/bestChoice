@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.bc.exception.CustomerException;
 import com.bc.model.Cart;
 import com.bc.model.Customer;
-import com.bc.repo.CartRepo;
-import com.bc.repo.CustomerRepo;
+import com.bc.repository.CartRepo;
+import com.bc.repository.CustomerRepo;
 import com.bc.service.CustomerService;
 
 @Service

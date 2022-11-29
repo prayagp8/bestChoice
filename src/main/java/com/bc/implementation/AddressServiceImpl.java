@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bc.exception.AddressException;
 import com.bc.model.Address;
-import com.bc.repo.AddressRepo;
+import com.bc.repository.AddressRepo;
 import com.bc.service.AddressService;
 
 @Service

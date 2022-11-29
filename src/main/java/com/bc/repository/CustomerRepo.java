@@ -1,4 +1,4 @@
-package com.bc.repo;
+package com.bc.repository;
 
 import java.util.List;
 
