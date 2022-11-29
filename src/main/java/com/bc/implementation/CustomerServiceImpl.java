@@ -18,26 +18,28 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerRepo cRepo;
-	
-	@Autowired CartRepo cartRepo;
+
+	@Autowired
+	CartRepo cartRepo;
+
 	@Override
 	public Customer addCustomer(Customer customer) throws CustomerException {
-		Cart cart=new Cart();
+		Cart cart = new Cart();
 		customer.setCart(cart);
 		cart.setCustomer(customer);
-		Customer c= cRepo.save(customer);
-		
-		if(c!=null) {
+		Customer c = cRepo.save(customer);
+
+		if (c != null) {
 			return c;
-		}else {
+		} else {
 			throw new CustomerException("customer not added");
 		}
 	}
 
 	@Override
 	public Customer updateCustomer(Customer customer) throws CustomerException {
-		Customer c=cRepo.findById(customer.getCId()).orElseThrow(()->new CustomerException("Customer not found"));
-		if(c!=null) {
+		Customer c = cRepo.findById(customer.getCId()).orElseThrow(() -> new CustomerException("Customer not found"));
+		if (c != null) {
 			cRepo.save(customer);
 		}
 		return c;
@@ -45,23 +47,23 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer remove(Integer customerId) throws CustomerException {
-		Optional<Customer> opt=cRepo.findById(customerId);
-		if(opt.isPresent()) {
-			Customer c=opt.get();
+		Optional<Customer> opt = cRepo.findById(customerId);
+		if (opt.isPresent()) {
+			Customer c = opt.get();
 			cRepo.delete(c);
 			return c;
-		}else {
-			throw new CustomerException("Customer not found with cid - "+customerId);
+		} else {
+			throw new CustomerException("Customer not found with cid - " + customerId);
 		}
-		
+
 	}
 
 	@Override
 	public List<Customer> viewAllCustomer() throws CustomerException {
-		List<Customer> customers=cRepo.findAll();
-		if(customers.size()>0) {
+		List<Customer> customers = cRepo.findAll();
+		if (customers.size() > 0) {
 			return customers;
-		}else {
+		} else {
 			throw new CustomerException("customer not found");
 		}
 	}
