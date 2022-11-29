@@ -7,59 +7,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bc.exception.AddressException;
+import com.bc.exception.CustomerException;
 import com.bc.model.Address;
+import com.bc.model.Customer;
 import com.bc.repository.AddressRepo;
+import com.bc.repository.CustomerRepo;
 import com.bc.service.AddressService;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
 	@Autowired
-	private AddressRepo aRepo;
+	private AddressRepo addressRepo;
 
-	@Override
-	public Address addAddress(Address address) throws AddressException {
-		Address a = aRepo.save(address);
-		if (a != null) {
-			return a;
-		} else {
-			throw new AddressException("Address not found");
-		}
+	@Autowired
+	private CustomerRepo customerRepo;
+
+	// check customer is available or not in database
+	public Customer userValidation(Integer userId) throws CustomerException {
+		Optional<Customer> customerOpt = customerRepo.findById(userId);
+		if (customerOpt.isEmpty())
+			throw new CustomerException("Customer not found with this id " + userId);
+		return customerOpt.get();
 	}
 
 	@Override
-	public Address updateAddress(Address address) throws AddressException {
-		Address a = aRepo.findById(address.getAddressId()).orElseThrow(() -> new AddressException("Address not found"));
-		aRepo.save(address);
-		return a;
-	}
-
-	@Override
-	public Address remove(Integer addressId) throws AddressException {
-		Optional<Address> opt = aRepo.findById(addressId);
-		if (opt.isPresent()) {
-			Address a = opt.get();
-			aRepo.delete(a);
-			return a;
-		} else {
-			throw new AddressException("Address not found addressid - " + addressId);
-		}
+	public Address updateAddress(Address address, Integer userId) throws AddressException, CustomerException {
+		if (address == null)
+			throw new AddressException("Address can't be null");
+		Customer customer = userValidation(userId);
+		customer.setAddress(address);
+		customerRepo.save(customer);
+		return address;
 	}
 
 	@Override
 	public List<Address> viewAllAddress() throws AddressException {
-		List<Address> addresses = aRepo.findAll();
-		if (addresses.size() > 0) {
-			return addresses;
-		} else {
-			throw new AddressException("Address not found");
-		}
+		List<Address> addresses = addressRepo.findAll();
+		if (addresses.isEmpty())
+			throw new AddressException("Address not found!");
+		return addresses;
 	}
 
 	@Override
-	public Address viewAddress(Integer addressId) throws AddressException {
-		Address a = aRepo.findById(addressId).orElseThrow(() -> new AddressException("Address not found"));
-		return a;
+	public Address viewAddressByUserId(Integer userId) throws CustomerException {
+		Customer customer = userValidation(userId);
+		return customer.getAddress();
 	}
 
 }
