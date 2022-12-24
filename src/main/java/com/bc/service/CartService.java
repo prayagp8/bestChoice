@@ -7,18 +7,18 @@ import com.bc.model.Cart;
 
 public interface CartService {
 
-	public Cart addProductToCart(Integer customerId, Integer productId)
+	public Cart addProductToCart(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException;
 
-	public Cart removeProductFromCart(Integer customerId, Integer productId)
+	public Cart removeProductFromCart(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException;
 
-	public Cart removeAllProduct(Integer customerId) throws CartException, CustomerException;
+	public Cart removeAllProduct(Long customerId) throws CartException, CustomerException;
 
-	public Cart increaseProductQuantity(Integer customerId, Integer productId)
+	public Cart increaseProductQuantity(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException;
 
-	public Cart decreaseProductQuantity(Integer customerId, Integer productId)
+	public Cart decreaseProductQuantity(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException;
 
 }

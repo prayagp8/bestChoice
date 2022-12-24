@@ -1,5 +1,6 @@
 package com.bc.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ public class Cart {
 	private Integer product_quantity;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Product> products;
+	private List<Product> products = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Customer customer;

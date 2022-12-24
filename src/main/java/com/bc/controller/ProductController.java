@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,18 +20,20 @@ import com.bc.model.Product;
 import com.bc.service.ProductService;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/product")
 public class ProductController {
 
 	@Autowired
 	private ProductService pService;
 
 	@GetMapping("/view")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<List<Product>> viewAllProduct() throws ProductException {
 		return new ResponseEntity<List<Product>>(pService.viewAllProduct(), HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
 	public ResponseEntity<Product> addProduct(@RequestBody Product p) throws ProductException {
 		Product product = pService.addProduct(p);
 		return new ResponseEntity<Product>(product, HttpStatus.OK);
@@ -54,6 +57,7 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/remove/{productId}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Product> removeProductById(@PathVariable("productId") Integer productId)
 			throws ProductException {
 		return new ResponseEntity<Product>(pService.removeProduct(productId), HttpStatus.OK);

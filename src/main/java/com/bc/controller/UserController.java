@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +29,8 @@ import com.bc.service.FeedbackService;
 
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerController {
+@RequestMapping("/api/user")
+public class UserController {
 
 	@Autowired
 	private CustomerService cService;
@@ -43,12 +44,14 @@ public class CustomerController {
 	}
 
 	@PutMapping("/update")
+	 @PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer c) throws CustomerException {
 		return new ResponseEntity<Customer>(cService.updateCustomer(c), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/remove/{id}")
-	public ResponseEntity<Customer> removeCustomerById(@PathVariable("id") Integer customerId) throws CustomerException {
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Customer> removeCustomerById(@PathVariable("id") Long customerId) throws CustomerException {
 		return new ResponseEntity<Customer>(cService.remove(customerId), HttpStatus.OK);
 	}
 
@@ -61,7 +64,8 @@ public class CustomerController {
 	///////////////////////////feedback Controller Part
 
 	@GetMapping("/feedbackcustomer/{customerId}")
-	public ResponseEntity<List<Feedback>> findByCustomerId(@PathVariable("customerId") Integer customerId)
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+	public ResponseEntity<List<Feedback>> findByCustomerId(@PathVariable("customerId") Long customerId)
 			throws FeedbackException, CustomerException {
 
 		List<Feedback> feedBacks = feedbackService.findByCustomerId(customerId);
@@ -71,13 +75,15 @@ public class CustomerController {
 	}
 
 	@GetMapping("/feedbacks")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<List<Feedback>> viewAllFeedbacks() throws FeedbackException {
 		return new ResponseEntity<List<Feedback>>(feedbackService.viewAllFeedbacks(), HttpStatus.OK);
 	}
 
 	@PostMapping("/feedbacks/{customerId}")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
 	public ResponseEntity<Feedback> addFeedback(@Valid @RequestBody Feedback feedback,
-			@PathVariable("customerId") Integer customerId) throws FeedbackException, CustomerException {
+			@PathVariable("customerId") Long customerId) throws FeedbackException, CustomerException {
 
 		return new ResponseEntity<Feedback>(feedbackService.addFeedback(feedback, customerId), HttpStatus.ACCEPTED);
 	}

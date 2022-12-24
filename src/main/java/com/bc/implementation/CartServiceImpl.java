@@ -1,5 +1,6 @@
 package com.bc.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class CartServiceImpl implements CartService {
 	private ProductRepo pRepo;
 
 	@Override
-	public Cart addProductToCart(Integer customerId, Integer productId)
+	public Cart addProductToCart(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
 		if (opt.isEmpty())
@@ -45,7 +46,7 @@ public class CartServiceImpl implements CartService {
 
 		List<Product> itemList = cart.getProducts();
 		boolean flag = true;
-		for (int i = 0; i < itemList.size(); i++) {
+		for (int i = 0; i < itemList.size()&itemList.size()!=0; i++) {
 			Product element = itemList.get(i);
 			if (element.getProductId() == productId) {
 				if (cart.getProduct_quantity() == null) {
@@ -59,7 +60,8 @@ public class CartServiceImpl implements CartService {
 			}
 		}
 		if (flag) {
-			cart.getProducts().add(itemOpt.get());
+			
+		   itemList.add(itemOpt.get());
 		}
 
 		cRepo.save(cart);
@@ -68,7 +70,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart removeProductFromCart(Integer customerId, Integer productId)
+	public Cart removeProductFromCart(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
 		if (opt.isEmpty())
@@ -99,7 +101,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart removeAllProduct(Integer customerId) throws CartException, CustomerException {
+	public Cart removeAllProduct(Long customerId) throws CartException, CustomerException {
 		Optional<Customer> opt = crRepo.findById(customerId);
 		if (opt.isEmpty())
 			throw new CustomerException("Customer not found!");
@@ -113,7 +115,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart increaseProductQuantity(Integer customerId, Integer productId)
+	public Cart increaseProductQuantity(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
 		if (opt.isEmpty())
@@ -144,7 +146,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart decreaseProductQuantity(Integer customerId, Integer productId)
+	public Cart decreaseProductQuantity(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
 		if (opt.isEmpty())

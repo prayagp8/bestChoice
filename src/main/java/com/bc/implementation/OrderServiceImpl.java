@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 	private CustomerRepo customerRepo;
 
 	@Override
-	public Orders addOrder(Integer cid) throws OrderException, CustomerException, CartException {
+	public Orders addOrder(Long cid) throws OrderException, CustomerException, CartException {
 
 		Optional<Customer> opt = customerRepo.findById(cid);
 		if (opt.isEmpty()) {
@@ -83,8 +83,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Orders> viewAllOrdersByUserId(Integer uderId) throws OrderException {
-		List<Orders> orders = customerRepo.getAllOrderByCid(uderId);
+	public List<Orders> viewAllOrdersByUserId(Long uderId) throws OrderException {
+		List<Orders> orders = customerRepo.getAllOrderByid(uderId);
 		if (orders.size() > 0) {
 			return orders;
 		} else {

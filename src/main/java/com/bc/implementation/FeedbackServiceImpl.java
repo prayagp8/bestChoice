@@ -28,7 +28,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	private CustomerRepo customerDao;
 
 	@Override
-	public Feedback addFeedback(Feedback feedback, Integer customerId) throws FeedbackException, CustomerException {
+	public Feedback addFeedback(Feedback feedback, Long customerId) throws FeedbackException, CustomerException {
 		Optional<Customer> findedCustomer = customerDao.findById(customerId);
 
 		if (findedCustomer.isPresent()) {
@@ -58,7 +58,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<Feedback> findByCustomerId(Integer customerId) throws FeedbackException, CustomerException {
+	public List<Feedback> findByCustomerId(Long customerId) throws FeedbackException, CustomerException {
 
 		Optional<Customer> findedCust = customerDao.findById(customerId);
 		if (findedCust.isPresent()) {

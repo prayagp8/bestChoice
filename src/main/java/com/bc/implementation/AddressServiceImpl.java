@@ -14,7 +14,7 @@ import com.bc.model.Customer;
 import com.bc.repository.AddressRepo;
 import com.bc.repository.CustomerRepo;
 import com.bc.service.AddressService;
-import com.bc.service.SessionLoginService;
+
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -25,11 +25,10 @@ public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private CustomerRepo customerRepo;
 
-	@Autowired
-	private SessionLoginService sessionService;
+
 
 	// check customer is available or not in database
-	public Customer userValidation(Integer userId) throws CustomerException {
+	public Customer userValidation(Long userId) throws CustomerException {
 		Optional<Customer> customerOpt = customerRepo.findById(userId);
 		if (customerOpt.isEmpty())
 			throw new CustomerException("Customer not found with this id " + userId);
@@ -37,13 +36,13 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public Address updateAddressByUserId(Address address, Integer userId, String key)
+	public Address updateAddressByUserId(Address address, Long userId, String key)
 			throws AddressException, CustomerException, SessionLoginException {
 		if (address == null)
 			throw new AddressException("Address can't be null");
 
 		// checking user login status
-		sessionService.checkAnyUserLoginStatus(key);
+		
 
 		Customer customer = userValidation(userId);
 		customer.setAddress(address);
@@ -55,7 +54,7 @@ public class AddressServiceImpl implements AddressService {
 	public List<Address> viewAllAddress(String key) throws AddressException, SessionLoginException {
 
 		// checking user login status
-		sessionService.checkAnyUserLoginStatus(key);
+		
 
 		List<Address> addresses = addressRepo.findAll();
 		if (addresses.isEmpty())
@@ -64,10 +63,10 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public Address viewAddressByUserId(Integer userId, String key) throws CustomerException, SessionLoginException {
+	public Address viewAddressByUserId(Long userId, String key) throws CustomerException, SessionLoginException {
 
 		// checking user login status
-		sessionService.checkAnyUserLoginStatus(key);
+		
 
 		Customer customer = userValidation(userId);
 		return customer.getAddress();

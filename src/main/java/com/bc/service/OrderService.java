@@ -9,7 +9,7 @@ import com.bc.model.Orders;
 
 public interface OrderService {
 
-	public Orders addOrder(Integer cid) throws OrderException, CustomerException, CartException;
+	public Orders addOrder(Long cid) throws OrderException, CustomerException, CartException;
 
 	public Orders updateOrder(Orders order) throws OrderException;
 
@@ -17,6 +17,6 @@ public interface OrderService {
 
 	public List<Orders> viewAllOrder() throws OrderException;
 
-	public List<Orders> viewAllOrdersByUserId(Integer userId) throws OrderException;
+	public List<Orders> viewAllOrdersByUserId(Long userId) throws OrderException;
 
 }

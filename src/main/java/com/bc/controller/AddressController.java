@@ -27,7 +27,7 @@ public class AddressController {
 	private AddressService addressService;
 
 	@PutMapping("/update/{userId}")
-	public ResponseEntity<Address> updateAddressByUserId(@PathVariable("userId") Integer userId,
+	public ResponseEntity<Address> updateAddressByUserId(@PathVariable("userId") Long userId,
 			@RequestBody Address address, @RequestParam("key") String key)
 			throws AddressException, CustomerException, SessionLoginException {
 		return new ResponseEntity<Address>(addressService.updateAddressByUserId(address, userId, key), HttpStatus.OK);
@@ -41,7 +41,7 @@ public class AddressController {
 
 	@GetMapping("/view/{userId}")
 	public ResponseEntity<Address> viewAddressByUserId(@RequestParam("key") String key,
-			@PathVariable("userId") Integer userId) throws CustomerException, SessionLoginException {
+			@PathVariable("userId") Long userId) throws CustomerException, SessionLoginException {
 		return new ResponseEntity<Address>(addressService.viewAddressByUserId(userId, key), HttpStatus.OK);
 	}
 }

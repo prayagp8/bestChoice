@@ -10,11 +10,11 @@ import com.bc.model.Feedback;
 
 public interface FeedbackService {
 
-	public Feedback addFeedback(Feedback feedback, Integer customerId) throws FeedbackException,CustomerException;
+	public Feedback addFeedback(Feedback feedback, Long customerId) throws FeedbackException,CustomerException;
 
 	public Feedback findByFeeedbackId(Integer feedbackId) throws FeedbackException;
 
-	public List<Feedback> findByCustomerId(Integer customerId) throws FeedbackException,CustomerException;
+	public List<Feedback> findByCustomerId(Long customerId) throws FeedbackException,CustomerException;
 
 	public List<Feedback> viewAllFeedbacks() throws FeedbackException;
 	
