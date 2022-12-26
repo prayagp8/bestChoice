@@ -38,10 +38,10 @@ public class UserController {
 	@Autowired
 	private FeedbackService feedbackService;
 
-	@PostMapping("/add")
-	public ResponseEntity<Customer> addCustomer(@RequestBody Customer c) throws CustomerException {
-		return new ResponseEntity<Customer>(cService.addCustomer(c), HttpStatus.OK);
-	}
+//	@PostMapping("/add")
+//	public ResponseEntity<Customer> addCustomer(@RequestBody Customer c) throws CustomerException {
+//		return new ResponseEntity<Customer>(cService.addCustomer(c), HttpStatus.OK);
+//	}
 
 	@PutMapping("/update")
 	 @PreAuthorize("hasRole('USER')")
@@ -54,7 +54,7 @@ public class UserController {
 	public ResponseEntity<Customer> removeCustomerById(@PathVariable("id") Long customerId) throws CustomerException {
 		return new ResponseEntity<Customer>(cService.remove(customerId), HttpStatus.OK);
 	}
-
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	@GetMapping("/view")
 	public ResponseEntity<List<Customer>> viewAllCustomer() throws CustomerException {
 		return new ResponseEntity<List<Customer>>(cService.viewAllCustomer(), HttpStatus.OK);
