@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bc.exception.CategoryException;
 import com.bc.exception.ProductException;
+import com.bc.model.Category;
 import com.bc.model.Product;
 import com.bc.service.ProductService;
 
@@ -62,5 +64,9 @@ public class ProductController {
 			throws ProductException {
 		return new ResponseEntity<Product>(pService.removeProduct(productId), HttpStatus.OK);
 	}
+	
+	
+
+	
 
 }

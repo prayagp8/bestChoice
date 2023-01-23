@@ -45,24 +45,25 @@ public class CartServiceImpl implements CartService {
 		Cart cart = customer.getCart();
 
 		List<Product> itemList = cart.getProducts();
-		boolean flag = true;
-		for (int i = 0; i < itemList.size()&itemList.size()!=0; i++) {
-			Product element = itemList.get(i);
-			if (element.getProductId() == productId) {
-				if (cart.getProduct_quantity() == null) {
-					cart.setProduct_quantity(1);
-
-				} else {
-					cart.setProduct_quantity(cart.getProduct_quantity() + 1);
-				}
-
-				flag = false;
-			}
-		}
-		if (flag) {
+		
+		if(itemList.size()!=0) {
 			
-		   itemList.add(itemOpt.get());
+			for(int i=0;i<itemList.size();i++) {
+				Product p = itemList.get(i);
+				if(p.getProductId()==productId) {
+					throw new ProductException("product already in the cart!");
+				}
+			}
+			
+		
+				itemList.add(itemOpt.get());
+				cart.setProduct_quantity(cart.getProduct_quantity()+1);
+			
+		}else {
+			itemList.add(itemOpt.get());
+			cart.setProduct_quantity(1);
 		}
+		
 
 		cRepo.save(cart);
 		return cart;
@@ -176,6 +177,19 @@ public class CartServiceImpl implements CartService {
 
 		cRepo.save(cart);
 		return cart;
+	}
+
+	@Override
+	public Cart viewCart(Long customerId) throws CartException {
+		 Optional<Customer> c = crRepo.findById(customerId);
+		 
+		 if(c.isPresent()) {
+			 Cart cart = c.get().getCart();
+			 return cart;
+		 }else {
+			 throw new CartException("customer id is invalid");
+		 }
+	
 	}
 
 }

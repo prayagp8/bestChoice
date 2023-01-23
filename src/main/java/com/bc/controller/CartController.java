@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,4 +61,10 @@ public class CartController {
 			@PathVariable("productId") Integer productId) throws CartException, CustomerException, ProductException {
 		return new ResponseEntity<Cart>(cService.decreaseProductQuantity(cartId, productId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/view/{cid}")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<Cart> viewCart( @PathVariable("cid") Long customerId) throws CartException{
+		return new ResponseEntity<Cart>(cService.viewCart(customerId),HttpStatus.OK);
+	};
 }

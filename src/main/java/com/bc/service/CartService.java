@@ -20,5 +20,7 @@ public interface CartService {
 
 	public Cart decreaseProductQuantity(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException;
+	
+	public Cart viewCart(Long cartId) throws CartException;
 
 }
