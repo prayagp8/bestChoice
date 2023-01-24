@@ -24,6 +24,8 @@
 * CRUD Operation for order.
 * CRUD Operation for cart.
 * CRUD Operation for address.
+* Bill Generation
+* Order Management
 
 
 ## ER Diagram
