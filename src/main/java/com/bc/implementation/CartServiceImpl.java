@@ -78,7 +78,7 @@ public class CartServiceImpl implements CartService {
 	public Cart removeProductFromCart(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
-		if (opt.isEmpty()) {
+		if (opt.isPresent()) {
 			throw new CustomerException("Customer not found!");
 		}
 		Optional<Product> itemOpt = pRepo.findById(productId);
