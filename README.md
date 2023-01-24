@@ -24,3 +24,35 @@
 * CRUD Operation for order.
 * CRUD Operation for cart.
 * CRUD Operation for address.
+* Bill Generation
+* Order Management
+
+
+## ER Diagram
+<img  alt="Coding" width="600" src="https://user-images.githubusercontent.com/103635204/204790968-900cdc59-cfb5-41ee-b690-680b77200008.png">
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/prayagp8/bestMart.git
+```
+
+Go to the project resources
+
+```bash
+  src/main/resources and change the MySQL credentials.
+```
+
+Run the main file
+
+```bash
+  src/main/java/com/tj/ProjectTravelJunkyApplication.java
+```
+
+Start the server
+
+```bash
+  http://localhost:3306/swagger-ui/#/
+```
