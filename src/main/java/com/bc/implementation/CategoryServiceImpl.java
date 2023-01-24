@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public Category createCategory(String c) throws CategoryException {
 		
-		System.out.println(c);
+		
 		 List<Category> categoryList = categoryRepo.findAll();
 		 if(categoryList.size()!=0) {
 			 for(int i =0;i<categoryList.size();i++) {

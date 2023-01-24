@@ -30,7 +30,7 @@ public class AddressServiceImpl implements AddressService {
 	// check customer is available or not in database
 	public Customer userValidation(Long userId) throws CustomerException {
 		Optional<Customer> customerOpt = customerRepo.findById(userId);
-		if (customerOpt.isEmpty()) {
+		if (customerOpt.isPresent()) {
 
 			throw new CustomerException("Customer not found with this id " + userId);
 		}
@@ -61,7 +61,7 @@ public class AddressServiceImpl implements AddressService {
 		
 
 		List<Address> addresses = addressRepo.findAll();
-		if (addresses.isEmpty()) {
+		if (addresses.size()==0) {
 			throw new AddressException("Address list is empty!");
 		}
 		return addresses;

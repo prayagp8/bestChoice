@@ -79,7 +79,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public List<Feedback> viewAllFeedbacks() throws FeedbackException {
 		List<Feedback> feedbacks = feedbackDao.findAll();
-		if (feedbacks.isEmpty()) {
+		if (feedbacks.size()==0) {
 			throw new FeedbackException("No feedback exists.");
 		}
 		return feedbacks;

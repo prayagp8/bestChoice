@@ -28,14 +28,13 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private CustomerRepo customerRepo;
 	
-	@Autowired
-	private ProductRepo productRepo;
+	
 
 	@Override
 	public Orders addOrder(Long cid) throws OrderException, CustomerException, CartException {
 
 		Optional<Customer> opt = customerRepo.findById(cid);
-		if (opt.isEmpty()) {
+		if (opt.isPresent()) {
 			throw new CustomerException("Customer not found");
 		}
 
@@ -47,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 		o.setOrderStatus("Pending");
 		o.setAddress(c.getAddress());
 		o.setCustomer(c);
-		if (cart.getProducts().isEmpty()) {
+		if (cart.getProducts().size()==0) {
 			throw new CartException("add minimum one product to order!");
 		} else {
 			o.setProductList(new ArrayList<>(cart.getProducts()));
