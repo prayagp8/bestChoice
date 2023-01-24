@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import lombok.Data;
 
 
+
+
+
+
 @Data
 @Entity
 public class Address {
@@ -16,7 +20,7 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer addressId;
 	private String streetNo;
-	
+
 	private String city;
 	private String state;
 	

@@ -10,7 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bc.Securityservices.UserDetailsImpl;
-
+import com.bc.exception.LoginException;
 import com.bc.login.security.jwt.JwtUtils;
 import com.bc.model.Cart;
 import com.bc.model.Customer;
 import com.bc.model.ERole;
-
+import com.bc.model.LoginDTO;
 import com.bc.model.Role;
 import com.bc.model.Wallet;
 import com.bc.payload.request.LoginRequest;
@@ -42,7 +42,7 @@ import com.bc.payload.response.UserInfoResponse;
 import com.bc.repository.CartRepo;
 import com.bc.repository.CustomerRepo;
 import com.bc.repository.RoleRepository;
-
+import com.bc.service.LoginService;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -112,7 +112,7 @@ public class LoginLogoutController {
 		if (strRoles == null) {
 			Optional<Role> modRole = roleRepository.findByName(ERole.ROLE_USER);
 
-			if(modRole.isPresent()) {
+			if(modRole.isEmpty()) {
 				Role r = new Role();
 				r.setName(ERole.ROLE_USER);
 				roleRepository.save(r);
@@ -127,7 +127,7 @@ public class LoginLogoutController {
 
 					Optional<Role> modRole1 = roleRepository.findByName(ERole.ROLE_ADMIN);
 
-					if(modRole1.isPresent()) {
+					if(modRole1.isEmpty()) {
 						Role r = new Role();
 						r.setName(ERole.ROLE_ADMIN);
 						roleRepository.save(r);
@@ -141,7 +141,7 @@ public class LoginLogoutController {
 				case "mod":
 					Optional<Role> modRole2 = roleRepository.findByName(ERole.ROLE_MODERATOR);
 
-					if(modRole2.isPresent()) {
+					if(modRole2.isEmpty()) {
 						Role r = new Role();
 						r.setName(ERole.ROLE_MODERATOR);
 						roleRepository.save(r);
@@ -156,7 +156,7 @@ public class LoginLogoutController {
 				default:
 					Optional<Role> modRole3 = roleRepository.findByName(ERole.ROLE_USER);
 
-					if(modRole3.isPresent()) {
+					if(modRole3.isEmpty()) {
 						Role r = new Role();
 						r.setName(ERole.ROLE_USER);
 						roleRepository.save(r);

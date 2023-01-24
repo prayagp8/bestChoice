@@ -55,7 +55,6 @@ public class Customer {
 		this.mobile = mobile;
 		this.email = email;
 		this.password = password;
-
 		this.address = address;
 	}
 
