@@ -34,6 +34,7 @@ import com.bc.model.Customer;
 import com.bc.model.ERole;
 import com.bc.model.LoginDTO;
 import com.bc.model.Role;
+import com.bc.model.Wallet;
 import com.bc.payload.request.LoginRequest;
 import com.bc.payload.request.SignupRequest;
 import com.bc.payload.response.MessageResponse;
@@ -170,6 +171,8 @@ public class LoginLogoutController {
 		user.setRoles(roles);
 		
 		Cart cart = new Cart();
+		Wallet w = new Wallet();
+		user.setWallet(w);
 		
 		user.setCart(cart);
 		cart.setCustomer(user);

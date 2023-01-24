@@ -69,6 +69,8 @@ public class Customer {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Wallet wallet;
 
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)

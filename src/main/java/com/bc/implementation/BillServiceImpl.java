@@ -53,10 +53,6 @@ public class BillServiceImpl implements BillService  {
 			bill.setAmount(amount);
 			bill.setQuantity(o.getProductList().size());
 			bill.setOrderId(o.getOrderId());
-			o.setOrderStatus("order placed !");
-
-			orderRepo.save(o);
-
 			return billRepo.save(bill);
 
 
