@@ -1,6 +1,6 @@
 package com.bc.implementation;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,12 +34,14 @@ public class CartServiceImpl implements CartService {
 	public Cart addProductToCart(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
-		if (opt.isEmpty())
+		if (opt.isEmpty()) {
 			throw new CustomerException("Customer not found!");
+		}
 
 		Optional<Product> itemOpt = pRepo.findById(productId);
-		if (itemOpt.isEmpty())
+		if (itemOpt.isEmpty()) {
 			throw new ProductException("Product not found!");
+		}
 
 		Customer customer = opt.get();
 		Cart cart = customer.getCart();
@@ -76,9 +78,9 @@ public class CartServiceImpl implements CartService {
 	public Cart removeProductFromCart(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
-		if (opt.isEmpty())
+		if (opt.isEmpty()) {
 			throw new CustomerException("Customer not found!");
-
+		}
 		Optional<Product> itemOpt = pRepo.findById(productId);
 		if (itemOpt.isEmpty())
 			throw new ProductException("Product not found!");
@@ -121,13 +123,13 @@ public class CartServiceImpl implements CartService {
 	public Cart increaseProductQuantity(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
-		if (opt.isEmpty())
+		if (opt.isEmpty()) {
 			throw new CustomerException("Customer not found!");
-
+		}
 		Optional<Product> itemOpt = pRepo.findById(productId);
-		if (itemOpt.isEmpty())
+		if (itemOpt.isEmpty()) {
 			throw new ProductException("Product not found!");
-
+		}
 		Customer customer = opt.get();
 		Cart cart = customer.getCart();
 		List<Product> itemList = cart.getProducts();
@@ -152,13 +154,13 @@ public class CartServiceImpl implements CartService {
 	public Cart decreaseProductQuantity(Long customerId, Integer productId)
 			throws CartException, CustomerException, ProductException {
 		Optional<Customer> opt = crRepo.findById(customerId);
-		if (opt.isEmpty())
+		if (opt.isEmpty()) {
 			throw new CustomerException("Customer not found!");
-
+		}
 		Optional<Product> itemOpt = pRepo.findById(productId);
-		if (itemOpt.isEmpty())
+		if (itemOpt.isEmpty()) {
 			throw new ProductException("Product not found!");
-
+		}
 		Customer customer = opt.get();
 		Cart cart = customer.getCart();
 		List<Product> itemList = cart.getProducts();
