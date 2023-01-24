@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bc.exception.BillException;
 import com.bc.exception.CartException;
 import com.bc.exception.CustomerException;
 import com.bc.exception.OrderException;
+import com.bc.model.Bill;
 import com.bc.model.Orders;
+import com.bc.service.BillService;
 import com.bc.service.OrderService;
 
 @RestController
@@ -28,8 +31,11 @@ public class OrderController {
 	@Autowired
 	private OrderService oService;
 
+	@Autowired
+	private BillService billService;
+
 	@PostMapping("/add")
-	 @PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Orders> addOrder(@RequestParam("customerId") Long customerId)
 			throws OrderException, CustomerException, CartException {
 		return new ResponseEntity<Orders>(oService.addOrder(customerId), HttpStatus.CREATED);
@@ -59,4 +65,19 @@ public class OrderController {
 			throws OrderException {
 		return new ResponseEntity<List<Orders>>(oService.viewAllOrdersByUserId(userId), HttpStatus.OK);
 	}
+
+	@GetMapping("/bill")
+	public ResponseEntity<Bill> generateBill(@RequestParam Integer orderId) throws OrderException{
+		return new ResponseEntity<Bill>(billService.generateBill(orderId),HttpStatus.OK);
+	};
+
+	@GetMapping("/viewbill/{bId}")
+	public ResponseEntity<Bill> viewBill(@PathVariable("bId") Integer billId) throws BillException{
+		return new ResponseEntity<Bill>(billService.viewBill(billId),HttpStatus.OK);
+	};
+
+	@GetMapping("/bills")
+	public ResponseEntity< List<Bill>> viewallBills()throws BillException{
+		return new ResponseEntity<List<Bill>>(billService.viewallBills(),HttpStatus.OK);
+	};  
 }

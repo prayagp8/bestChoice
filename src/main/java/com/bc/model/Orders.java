@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,7 +33,7 @@ public class Orders {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Customer customer;
 
-	@Embedded
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
 	@ElementCollection
 	private List<Product> productList;
 

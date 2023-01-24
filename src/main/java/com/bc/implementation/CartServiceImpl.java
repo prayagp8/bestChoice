@@ -64,9 +64,11 @@ public class CartServiceImpl implements CartService {
 			cart.setProduct_quantity(1);
 		}
 		
+		itemOpt.get().setCart(cart);
+		pRepo.save(itemOpt.get());
 
-		cRepo.save(cart);
-		return cart;
+		
+		return cRepo.save(cart);
 
 	}
 
@@ -174,8 +176,10 @@ public class CartServiceImpl implements CartService {
 		if (flag) {
 			cart.getProducts().add(itemOpt.get());
 		}
-
+	
 		cRepo.save(cart);
+		
+		
 		return cart;
 	}
 

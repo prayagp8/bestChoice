@@ -16,6 +16,7 @@ import com.bc.model.Customer;
 import com.bc.model.Orders;
 import com.bc.repository.CustomerRepo;
 import com.bc.repository.OrderRepo;
+import com.bc.repository.ProductRepo;
 import com.bc.service.OrderService;
 
 @Service
@@ -26,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private CustomerRepo customerRepo;
+	
+	@Autowired
+	private ProductRepo productRepo;
 
 	@Override
 	public Orders addOrder(Long cid) throws OrderException, CustomerException, CartException {
@@ -47,6 +51,10 @@ public class OrderServiceImpl implements OrderService {
 			throw new CartException("add minimum one product to order!");
 		} else {
 			o.setProductList(new ArrayList<>(cart.getProducts()));
+			
+			for(int i=0;i<cart.getProducts().size();i++) {
+				cart.getProducts().get(i).setOrder(o);
+			}
 			return oRepo.save(o);
 		}
 
