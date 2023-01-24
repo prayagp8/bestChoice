@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bc.exception.CategoryException;
 import com.bc.exception.ProductException;
 import com.bc.model.Category;
 import com.bc.model.Product;

@@ -2,9 +2,9 @@ package com.bc.service;
 
 import java.util.List;
 
-import com.bc.exception.CategoryException;
+
 import com.bc.exception.ProductException;
-import com.bc.model.Category;
+
 import com.bc.model.Product;
 
 public interface ProductService {
