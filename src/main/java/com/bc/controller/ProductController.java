@@ -35,7 +35,7 @@ public class ProductController {
 	}
 
 	@PostMapping("/add")
-	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+//	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
 	public ResponseEntity<Product> addProduct(@RequestBody Product p) throws ProductException {
 		Product product = pService.addProduct(p);
 		return new ResponseEntity<Product>(product, HttpStatus.OK);
