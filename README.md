@@ -36,7 +36,7 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/prayagp8/bestMart.git
+  git clone https://github.com/prayagp8/bestChoice.git
 ```
 
 Go to the project resources
@@ -48,8 +48,8 @@ Go to the project resources
 Run the main file
 
 ```bash
-  src/main/java/com/tj/ProjectTravelJunkyApplication.java
-```
+  src/main/java/com/tj/BestChoiceApplication.java
+  ```
 
 Start the server
 
