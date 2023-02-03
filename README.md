@@ -9,7 +9,7 @@
 * Spring Boot
 * Spring Data JPA
 * MySQL
-* Swagger
+* Postman
 
 ## Modules
 
